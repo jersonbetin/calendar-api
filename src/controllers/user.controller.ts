@@ -1,9 +1,9 @@
 import Container from 'typedi';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '@prisma/client';
+// import { User } from '@prisma/client';
 
 import { UserService } from '@services/user.service';
-// import { User } from '@interfaces/users.interface';
+import { User, UserWithoutPassword } from '@interfaces/users.interface';
 
 export class UserController {
   public userService = Container.get(UserService);
@@ -14,7 +14,7 @@ export class UserController {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      const data = await this.userService.findAllUser();
+      const data:UserWithoutPassword[] = await this.userService.findAllUser();
 
       res.status(200).json({ data, message: 'Search users successfully!' });
     } catch (e) {
@@ -29,7 +29,7 @@ export class UserController {
   ): Promise<void> => {
     const { userId } = req.params;
     try {
-      const data = await this.userService.findUserById(userId);
+      const data:UserWithoutPassword = await this.userService.findUserById(userId);
 
       res.status(200).json({ data, message: 'Find user successfully!' });
     } catch (e) {
@@ -51,4 +51,21 @@ export class UserController {
       next(e);
     }
   };
+
+  public deleteUserById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { userId } = req.params;
+    try {
+      const data:UserWithoutPassword = await this.userService.deleteUser(userId);
+
+      res.status(200).json({ data, message: 'Delete user successfully!' });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+
 }

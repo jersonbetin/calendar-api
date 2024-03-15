@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -7,4 +7,9 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   public password: string;
+}
+
+export class UserParamsDto {
+  @IsUUID('all', { message: 'User id must be a uuid' })
+  userId: string;
 }

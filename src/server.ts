@@ -1,11 +1,6 @@
 import { App } from '@/app';
-import { Router } from 'express';
+import { UserRoute } from '@routes/user.route';
 
-const router: Router = Router();
-router.get('/', (req, res) => {
-  res.send('Welcome to api!');
-});
-
-const app = new App([router]);
+const app = new App([new UserRoute()]);
 
 app.listen();

@@ -1,21 +1,21 @@
-import express from 'express';
+import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { Application, Router } from 'express';
 
 import { LOG_FORMAT, NODE_ENV, ORIGIN, PORT } from '@config';
 import { logger, stream } from '@utils/logger';
-import { ErrorMiddleware } from './middlewares/error.middleware';
+import { ErrorMiddleware } from '@middlewares/error.middleware';
+import { Routes } from '@interfaces/routes.interface';
 
 export class App {
   public app: Application;
   public env: string;
   public port: string | number;
 
-  constructor(routes: Router[]) {
+  constructor(routes: Routes[]) {
     this.app = express();
     this.env = NODE_ENV || 'development';
     this.port = PORT || 3000;
@@ -47,9 +47,9 @@ export class App {
     this.app.use(cookieParser());
   }
 
-  private initRouters(routes: Router[]) {
+  private initRouters(routes: Routes[]) {
     routes.forEach((route) => {
-      this.app.use('/', route);
+      this.app.use('/', route.router);
     });
   }
 

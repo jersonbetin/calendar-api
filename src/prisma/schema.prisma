@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "./model.png"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String  @id @default(uuid())
+  email String  @unique
+  password String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  @@map("users")
+}

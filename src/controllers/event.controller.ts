@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Event } from '@interfaces/event.interface';
 import { EventService } from '@services/event.service';
 import { RequestWithUser } from '@/interfaces/auth.interface';
+import { Prisma } from '@prisma/client';
 
 export class EventController {
   public eventService = Container.get(EventService);
@@ -16,11 +17,18 @@ export class EventController {
     const { id } = req.user;
 
     try {
-      const { skip, take } = req.query;
+      const { end = '', start = '' } = req.query;
+      let where: Prisma.EventWhereInput = {};
+
+      if (start) {
+        where = {
+          startDate: { gte: new Date(start as string).toISOString() },
+          endDate: { lte:new Date(end as string).toISOString() },
+        };
+      }
+
       const data: Event[] = await this.eventService.findAllEvent({
-        skip: +skip,
-        take: +take || 0,
-        where: { userId: id },
+        where: { ...where, userId: id },
       });
 
       res.status(200).json({ data, message: 'Search events successfully!' });

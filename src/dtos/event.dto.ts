@@ -36,12 +36,12 @@ export class UpdateEventDto {
   @IsString()
   public title?: string;
 
-  @IsDate()
+  @Type(() => Date)
   @IsNotEmpty()
   @IsOptional()
   public startDate?: Date;
 
-  @IsDate()
+  @Type(() => Date)
   @IsNotEmpty()
   @IsOptional()
   public endDate?: Date;

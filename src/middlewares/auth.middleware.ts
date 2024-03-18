@@ -33,7 +33,6 @@ export const AuthMiddleware = async (
       next(new HttpException(401, 'Authentication token missing'));
     }
   } catch(e) {
-    console.log(e);
     next(new HttpException(401, 'Wrong authentication token'));
   }
 };

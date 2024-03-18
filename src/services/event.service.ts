@@ -11,16 +11,13 @@ export class EventService {
   public event = new PrismaClient().event;
 
   public async findAllEvent(params: {
-    skip?: number;
-    take?: number;
+    // skip?: number;
+    // take?: number;
     where?: Prisma.EventWhereInput;
     orderBy?: Prisma.EventOrderByWithRelationInput;
   }): Promise<Event[]> {
-    const { skip, take, where, orderBy = { startDate: 'asc' } } = params;
-    console.log(params);
+    const {  where, orderBy = { startDate: 'asc' } } = params;
     const events: Event[] = await this.event.findMany({
-      skip,
-      take,
       where,
       orderBy,
     });
@@ -41,7 +38,6 @@ export class EventService {
 
     return await this.event.create({
       data: { title, description, endDate, startDate, userId: sub },
-      include: { user: true },
     });
   }
 

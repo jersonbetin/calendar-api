@@ -61,7 +61,7 @@ export class AuthService {
   public createToken(user: UserWithoutPassword): string {
     const dataStoredInToken: DataStoredInToken = { sub: user.id };
     const secretKey: string = SECRET_KEY || 'secret';
-    const expiresIn: number = 60 * 60;
+    const expiresIn: number = 6000 * 6000;
 
     return sign(dataStoredInToken, secretKey, { expiresIn });
   }

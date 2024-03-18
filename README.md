@@ -22,21 +22,21 @@
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Tailwindcss][Tailwindcss.css]][Tailwindcss-url]
+
+* [![Prisma][Prisma.io]][Prisma-url]
+* [![Postgres][Postgresql.org]][Postgres-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
-First, clone your project:
+1, clone your project:
 ```bash
 git clone git@github.com:jersonbetin/etyalab-api.git
 
 ```
 
-Second, install dependencies:
+2, install dependencies:
 
 ```bash
 npm i
@@ -44,7 +44,17 @@ npm i
 yarn intall
 ```
 
-Thirst, run the development server:
+3, Enter your API in `.env`
+   ```js
+    PORT =
+    DATABASE_URL=
+    SECRET_KEY = 
+    LOG_FORMAT = 
+    LOG_DIR = 
+    ORIGIN = 
+   ```
+
+4, run the development server:
 
 ```bash
 npm run start:dev

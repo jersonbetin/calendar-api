@@ -1,6 +1,6 @@
 import { App } from '@/app';
-import { UserRoute } from '@routes/user.route';
+import Routes from '@routes/index';
 
-const app = new App([new UserRoute()]);
+const app = new App(Routes);
 
 app.listen();

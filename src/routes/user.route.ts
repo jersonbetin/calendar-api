@@ -1,8 +1,10 @@
 import { Router } from 'express';
+
 import { Routes } from '@interfaces/routes.interface';
-import { UserController } from '@/controllers/user.controller';
+import { UserController } from '@controllers/user.controller';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
-import { CreateUserDto, UserParamsDto } from '@/dtos/user.dto';
+import { CreateUserDto, UserParamsDto } from '@dtos/user.dto';
+import { AuthMiddleware } from '@middlewares/auth.middleware';
 
 export class UserRoute implements Routes {
   public path = '/users';
@@ -14,7 +16,7 @@ export class UserRoute implements Routes {
   }
 
   private initRoutes() {
-    this.router.get(`${this.path}`, this.user.getUsers);
+    this.router.get(`${this.path}`, AuthMiddleware, this.user.getUsers);
     this.router.get(
       `${this.path}/:userId`,
       ValidationMiddleware(UserParamsDto, 'params'),

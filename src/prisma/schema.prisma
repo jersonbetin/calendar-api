@@ -11,12 +11,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Event {
+  id Int @id @default(autoincrement())
+  title   String
+  startDate DateTime
+  endDate DateTime
+  description String?
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  @@map("events")
+
+}
+
 model User {
   id    String  @id @default(uuid())
   email String  @unique
   password String
+  event Event []
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
   @@map("users")
 }
+
